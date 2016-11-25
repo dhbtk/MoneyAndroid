@@ -1,4 +1,4 @@
-package io.edanni.money.application.activity;
+package io.edanni.money.ui.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

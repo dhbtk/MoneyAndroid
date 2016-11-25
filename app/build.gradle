@@ -3,13 +3,13 @@ apply plugin: 'android-apt'
 def AAVersion = '4.1.0'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion "24.0.3"
 
     defaultConfig {
         applicationId "io.edanni.money"
-        minSdkVersion 17
-        targetSdkVersion 24
+        minSdkVersion 21
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
@@ -23,9 +23,20 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
+
+    compile 'com.github.edanniehues:eits-syncer-android:master-SNAPSHOT'
+
+    compile group: 'com.netflix.feign', name: 'feign-jaxrs', version: '8.18.0'
+    compile group: 'com.netflix.feign', name: 'feign-jackson', version: '8.18.0'
+
+    compile group: 'com.j256.ormlite', name: 'ormlite-android', version: '5.0'
+
+    compile 'org.androidannotations:ormlite-api:4.1.0'
+    apt 'org.androidannotations:ormlite:4.1.0'
 }
