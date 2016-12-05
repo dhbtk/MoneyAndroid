@@ -4,7 +4,7 @@ def AAVersion = '4.1.0'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "io.edanni.money"
@@ -29,14 +29,6 @@ dependencies {
     compile 'com.android.support:design:25.0.1'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
-
-    compile 'com.github.edanniehues:eits-syncer-android:master-SNAPSHOT'
-
-    compile group: 'com.netflix.feign', name: 'feign-jaxrs', version: '8.18.0'
-    compile group: 'com.netflix.feign', name: 'feign-jackson', version: '8.18.0'
-
-    compile group: 'com.j256.ormlite', name: 'ormlite-android', version: '5.0'
-
-    compile 'org.androidannotations:ormlite-api:4.1.0'
-    apt 'org.androidannotations:ormlite:4.1.0'
+    apt "org.androidannotations:rest-spring:$AAVersion"
+    compile "org.androidannotations:rest-spring-api:$AAVersion"
 }
