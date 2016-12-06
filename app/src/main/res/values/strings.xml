@@ -18,4 +18,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_test">Test</string>
+    <string name="home">Home</string>
+    <string name="statements">Movimentações</string>
+    <string name="accounts">Contas</string>
+    <string name="categories">Categorias</string>
 </resources>

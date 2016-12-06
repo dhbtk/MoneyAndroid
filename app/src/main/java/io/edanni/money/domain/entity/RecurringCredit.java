@@ -11,4 +11,5 @@ public class RecurringCredit extends AbstractEntity
     Integer months;
     BigDecimal value;
     Tag tag;
+    Integer accountId;
 }

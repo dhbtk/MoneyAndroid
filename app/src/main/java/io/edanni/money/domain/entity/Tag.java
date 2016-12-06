@@ -7,4 +7,5 @@ public class Tag extends AbstractEntity
 {
     String name;
     String icon;
+    Integer userId;
 }

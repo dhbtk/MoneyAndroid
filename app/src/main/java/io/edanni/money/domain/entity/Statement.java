@@ -13,4 +13,5 @@ public class Statement extends AbstractEntity
     BigDecimal value;
     Account account;
     Tag tag;
+    Integer accountId;
 }
