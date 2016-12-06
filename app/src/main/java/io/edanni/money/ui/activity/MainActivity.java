@@ -1,20 +1,19 @@
 package io.edanni.money.ui.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.TextView;
 import io.edanni.money.R;
+import io.edanni.money.infrastructure.security.CredentialsStore;
 import io.edanni.money.ui.fragment.StatementFragment_;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.*;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
@@ -29,6 +28,8 @@ public class MainActivity extends AppCompatActivity
     NavigationView navDrawer;
     @ViewById(R.id.drawer_email)
     TextView drawerEmail;
+    @Bean
+    CredentialsStore store;
 
     @AfterViews
     void startup()
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
 
-    public void selectDrawerItem( @NonNull MenuItem item )
+    private void selectDrawerItem( @NonNull MenuItem item )
     {
         switch ( item.getItemId() )
         {
@@ -66,6 +67,15 @@ public class MainActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction().replace( R.id.content_main, new StatementFragment_() ).commit();
                 break;
         }
-        drawer.closeDrawer( Gravity.LEFT );
+        drawer.closeDrawer( GravityCompat.START );
+    }
+
+    @Click(R.id.main_logout)
+    void logout()
+    {
+        store.setEmail( null );
+        store.setPassword( null );
+        startActivity( new Intent( this, LoginActivity_.class ) );
+        finish();
     }
 }

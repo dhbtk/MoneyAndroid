@@ -22,4 +22,10 @@
     <string name="statements">Movimentações</string>
     <string name="accounts">Contas</string>
     <string name="categories">Categorias</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up_label">No account yet? Create one</string>
+    <string name="please_input_email_and_password">Por favor insira seu login e senha.</string>
+    <string name="action_logout">Logout</string>
 </resources>

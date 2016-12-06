@@ -44,6 +44,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
     compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+    compile group: 'com.netflix.feign', name: 'feign-jackson', version: '8.18.0'
     compile 'com.android.support:support-v4:25.0.1'
     compile 'com.android.support:recyclerview-v7:25.0.1'
     testCompile 'junit:junit:4.12'
