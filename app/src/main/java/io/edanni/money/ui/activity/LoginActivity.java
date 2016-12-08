@@ -12,7 +12,6 @@ import io.edanni.money.domain.repository.UserRepository;
 import io.edanni.money.infrastructure.rest.RetrofitFactory;
 import io.edanni.money.infrastructure.security.CredentialsStore;
 import org.androidannotations.annotations.*;
-import retrofit2.Response;
 
 import java.io.IOException;
 
@@ -48,6 +47,7 @@ public class LoginActivity extends AppCompatActivity
         {
             store.setEmail( emailInput.getText().toString() );
             store.setPassword( passwordInput.getText().toString() );
+            loginButton.setEnabled( false );
             login();
         }
         else
@@ -64,8 +64,15 @@ public class LoginActivity extends AppCompatActivity
         login.password = store.getPassword();
         try
         {
-            Response<UserWrapper> response = userRepository.signIn(login).execute();
-            switchToMain();
+            UserWrapper response = userRepository.signIn(login).execute().body();
+            if ( response != null )
+            {
+                switchToMain();
+            }
+            else
+            {
+                showLoginError();
+            }
         }
         catch ( IOException e )
         {
@@ -83,6 +90,7 @@ public class LoginActivity extends AppCompatActivity
     @UiThread
     void showLoginError()
     {
-        Toast.makeText( this, getString( R.string.please_input_email_and_password ), Toast.LENGTH_SHORT ).show();
+        loginButton.setEnabled( true );
+        Toast.makeText( this, getString( R.string.invalid_username_or_password ), Toast.LENGTH_SHORT ).show();
     }
 }

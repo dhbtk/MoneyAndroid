@@ -7,7 +7,6 @@ import io.edanni.money.domain.entity.Statement;
 import io.edanni.money.domain.repository.StatementRepository;
 import io.edanni.money.infrastructure.rest.Page;
 import io.edanni.money.infrastructure.rest.RetrofitFactory;
-import io.edanni.money.ui.fragment.dummy.DummyContent;
 import io.edanni.money.ui.fragment.dummy.DummyContent.DummyItem;
 import org.androidannotations.annotations.*;
 
@@ -26,6 +25,8 @@ public class StatementFragment extends Fragment
     @ViewById(R.id.statement_list)
     RecyclerView statementList;
     @Bean
+    StatementViewAdapter statementViewAdapter;
+    @Bean
     RetrofitFactory retrofitFactory;
     StatementRepository statementRepository;
 
@@ -43,7 +44,7 @@ public class StatementFragment extends Fragment
     void afterViews()
     {
         statementRepository = retrofitFactory.createService( StatementRepository.class );
-        statementList.setAdapter( new StatementViewAdapter( DummyContent.ITEMS, null ) );
+        statementList.setAdapter( statementViewAdapter );
         getStatements();
     }
 
@@ -52,29 +53,19 @@ public class StatementFragment extends Fragment
     {
         try
         {
-            Statement statement = statementRepository.getCredit( 186 ).execute().body();
-            showStatements( null );
-        }
-        catch ( IOException e )
-        {
-            e.printStackTrace();
-        }
-        try
-        {
             Page<Statement> statements = statementRepository.getStatements( "past", 1 ).execute().body();
-            showStatements( null );
+            showStatements( statements.content );
         }
         catch ( IOException e )
         {
             e.printStackTrace();
         }
-
-        showStatements( null );
     }
 
     @UiThread
     void showStatements(List<Statement> statements)
     {
+        ((StatementViewAdapter) statementList.getAdapter()).setItems( statements );
     }
 
     /**

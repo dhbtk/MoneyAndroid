@@ -9,7 +9,6 @@ import io.edanni.money.domain.repository.UserRepository;
 import io.edanni.money.infrastructure.rest.RetrofitFactory;
 import io.edanni.money.infrastructure.security.CredentialsStore;
 import org.androidannotations.annotations.*;
-import retrofit2.Response;
 
 import java.io.IOException;
 
@@ -45,8 +44,15 @@ public class StartupActivity extends AppCompatActivity
         login.password = store.getPassword();
         try
         {
-            Response<UserWrapper> response = userRepository.signIn(login).execute();
-            switchToMain();
+            UserWrapper response = userRepository.signIn(login).execute().body();
+            if ( response != null )
+            {
+                switchToMain();
+            }
+            else
+            {
+                showLoginError();
+            }
         }
         catch ( IOException e )
         {

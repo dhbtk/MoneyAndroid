@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context="io.edanni.money.ui.fragment.StatementFragment"
-        tools:listitem="@layout/fragment_statement" />
+        tools:listitem="@layout/statement_item" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_statement"

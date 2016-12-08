@@ -29,4 +29,9 @@
     <string name="please_input_email_and_password">Por favor insira seu login e senha.</string>
     <string name="action_logout">Logout</string>
     <string name="sign_out_successful">Logout efetuado com sucesso.</string>
+    <string name="statement_from_to">»</string>
+    <string name="spendings">Despesas</string>
+    <string name="incomes">Receitas</string>
+    <string name="currency_value">R$ %s</string>
+    <string name="invalid_username_or_password">Usuário ou senha inválidos</string>
 </resources>
