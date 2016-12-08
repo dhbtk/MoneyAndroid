@@ -36,6 +36,11 @@ public class CredentialsStore
         this.preferences.edit().putString( "password", password ).apply();
     }
 
+    public void setToken(String token)
+    {
+        this.preferences.edit().putString( "token", token ).apply();
+    }
+
     public String getEmail()
     {
         return this.preferences.getString( "email", null );

@@ -7,9 +7,9 @@ import java.math.BigDecimal;
  */
 public class RecurringCredit extends AbstractEntity
 {
-    String name;
-    Integer months;
-    BigDecimal value;
-    Tag tag;
-    Integer accountId;
+    public String name;
+    public Integer months;
+    public BigDecimal value;
+    public Tag tag;
+    public Integer accountId;
 }

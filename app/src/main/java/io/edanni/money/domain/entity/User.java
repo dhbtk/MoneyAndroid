@@ -5,5 +5,9 @@ package io.edanni.money.domain.entity;
  */
 public class User extends AbstractEntity
 {
-    String email;
+    public String email;
+    public String provider;
+    public String uid;
+    public String name;
+    public String image;
 }

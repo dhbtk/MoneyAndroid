@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 import io.edanni.money.R;
 import io.edanni.money.infrastructure.security.CredentialsStore;
 import io.edanni.money.ui.fragment.StatementFragment_;
@@ -70,12 +71,13 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer( GravityCompat.START );
     }
 
-    @Click(R.id.main_logout)
+    @OptionsItem(R.id.main_logout)
     void logout()
     {
         store.setEmail( null );
         store.setPassword( null );
         startActivity( new Intent( this, LoginActivity_.class ) );
+        Toast.makeText( this, getString( R.string.sign_out_successful ), Toast.LENGTH_SHORT ).show();
         finish();
     }
 }

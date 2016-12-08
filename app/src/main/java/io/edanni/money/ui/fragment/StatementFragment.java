@@ -3,11 +3,16 @@ package io.edanni.money.ui.fragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import io.edanni.money.R;
+import io.edanni.money.domain.entity.Statement;
+import io.edanni.money.domain.repository.StatementRepository;
+import io.edanni.money.infrastructure.rest.Page;
+import io.edanni.money.infrastructure.rest.RetrofitFactory;
 import io.edanni.money.ui.fragment.dummy.DummyContent;
 import io.edanni.money.ui.fragment.dummy.DummyContent.DummyItem;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.*;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -20,6 +25,10 @@ public class StatementFragment extends Fragment
 {
     @ViewById(R.id.statement_list)
     RecyclerView statementList;
+    @Bean
+    RetrofitFactory retrofitFactory;
+    StatementRepository statementRepository;
+
     private OnListFragmentInteractionListener mListener;
 
     /**
@@ -33,7 +42,39 @@ public class StatementFragment extends Fragment
     @AfterViews
     void afterViews()
     {
+        statementRepository = retrofitFactory.createService( StatementRepository.class );
         statementList.setAdapter( new StatementViewAdapter( DummyContent.ITEMS, null ) );
+        getStatements();
+    }
+
+    @Background
+    void getStatements()
+    {
+        try
+        {
+            Statement statement = statementRepository.getCredit( 186 ).execute().body();
+            showStatements( null );
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            Page<Statement> statements = statementRepository.getStatements( "past", 1 ).execute().body();
+            showStatements( null );
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+
+        showStatements( null );
+    }
+
+    @UiThread
+    void showStatements(List<Statement> statements)
+    {
     }
 
     /**

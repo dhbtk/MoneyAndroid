@@ -7,8 +7,8 @@ import java.math.BigDecimal;
  */
 public class CreditCard extends Account
 {
-    Integer expiration;
-    Integer closing;
-    BigDecimal interest;
-    BigDecimal fine;
+    public Integer expiration;
+    public Integer closing;
+    public BigDecimal interest;
+    public  BigDecimal fine;
 }

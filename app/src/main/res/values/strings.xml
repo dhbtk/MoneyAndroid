@@ -28,4 +28,5 @@
     <string name="sign_up_label">No account yet? Create one</string>
     <string name="please_input_email_and_password">Por favor insira seu login e senha.</string>
     <string name="action_logout">Logout</string>
+    <string name="sign_out_successful">Logout efetuado com sucesso.</string>
 </resources>

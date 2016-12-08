@@ -5,7 +5,7 @@ package io.edanni.money.domain.entity;
  */
 public class Tag extends AbstractEntity
 {
-    String name;
-    String icon;
-    Integer userId;
+    public String name;
+    public String icon;
+    public Integer userId;
 }
