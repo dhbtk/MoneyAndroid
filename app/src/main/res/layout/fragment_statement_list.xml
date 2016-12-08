@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:name="io.edanni.money.ui.fragment.StatementFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frame"
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -17,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
-            tools:context="io.edanni.money.ui.fragment.StatementFragment"
+            tools:context="io.edanni.money.ui.fragment.StatementListFragment"
             tools:listitem="@layout/statement_item" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_statement"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

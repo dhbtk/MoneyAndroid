@@ -3,6 +3,7 @@ package io.edanni.money.ui.activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import io.edanni.money.R;
 import io.edanni.money.infrastructure.security.CredentialsStore;
-import io.edanni.money.ui.fragment.StatementFragment_;
+import io.edanni.money.ui.fragment.StatementListFragment_;
 import org.androidannotations.annotations.*;
 
 @EActivity(R.layout.activity_main)
@@ -65,10 +66,15 @@ public class MainActivity extends AppCompatActivity
         switch ( item.getItemId() )
         {
             case R.id.nav_statements:
-                getSupportFragmentManager().beginTransaction().replace( R.id.content_main, new StatementFragment_() ).commit();
+                changeToFragment( new StatementListFragment_() );
                 break;
         }
         drawer.closeDrawer( GravityCompat.START );
+    }
+
+    public void changeToFragment( Fragment fragment )
+    {
+        getSupportFragmentManager().beginTransaction().replace( R.id.content_main, fragment ).commit();
     }
 
     @OptionsItem(R.id.main_logout)

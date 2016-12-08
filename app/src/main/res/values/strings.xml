@@ -34,4 +34,14 @@
     <string name="incomes">Receitas</string>
     <string name="currency_value">R$ %s</string>
     <string name="invalid_username_or_password">Usuário ou senha inválidos</string>
+    <string name="add_statement">Adicionar Movimentação</string>
+    <string name="income">Receita</string>
+    <string name="spending">Despesa</string>
+    <string name="transfer">Transferência</string>
+    <string name="close">Fechar</string>
+    <string name="value">Valor</string>
+    <string name="account">Conta</string>
+    <string name="category">Categoria</string>
+    <string name="name">Nome</string>
+    <string name="date">Data</string>
 </resources>

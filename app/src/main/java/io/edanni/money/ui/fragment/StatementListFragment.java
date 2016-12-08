@@ -1,14 +1,15 @@
 package io.edanni.money.ui.fragment;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.widget.FrameLayout;
 import io.edanni.money.R;
 import io.edanni.money.domain.entity.Statement;
 import io.edanni.money.domain.repository.StatementRepository;
 import io.edanni.money.infrastructure.rest.Page;
 import io.edanni.money.infrastructure.rest.RetrofitFactory;
-import io.edanni.money.ui.fragment.dummy.DummyContent.DummyItem;
 import org.androidannotations.annotations.*;
 
 import java.io.IOException;
@@ -16,36 +17,36 @@ import java.util.List;
 
 /**
  * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
  */
 @EFragment(R.layout.fragment_statement_list)
-public class StatementFragment extends Fragment
+public class StatementListFragment extends Fragment
 {
+    @ViewById
+    FrameLayout frame;
     @ViewById(R.id.list)
     RecyclerView statementList;
     @ViewById(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
+    @ViewById
+    FloatingActionButton fab;
     @Bean
     StatementViewAdapter statementViewAdapter;
     @Bean
     RetrofitFactory retrofitFactory;
     StatementRepository statementRepository;
 
-    private OnListFragmentInteractionListener mListener;
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public StatementFragment()
+    public StatementListFragment()
     {
     }
 
     @AfterViews
     void afterViews()
     {
+        getActivity().setTitle( getString( R.string.statements ) );
         statementRepository = retrofitFactory.createService( StatementRepository.class );
         statementList.setAdapter( statementViewAdapter );
         swipeRefreshLayout.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener()
@@ -57,7 +58,6 @@ public class StatementFragment extends Fragment
             }
         } );
         getStatements();
-
     }
 
     @Background
@@ -81,19 +81,11 @@ public class StatementFragment extends Fragment
         swipeRefreshLayout.setRefreshing( false );
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener
+    @Click
+    void fab()
     {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction( DummyItem item );
+        StatementNewFragment dialog = new StatementNewFragment_();
+        dialog.setTargetFragment( this, 300 );
+        dialog.show( getActivity().getSupportFragmentManager(), "fragment_statement_new_dialog" );
     }
 }
