@@ -1,6 +1,7 @@
 package io.edanni.money.ui.fragment;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import io.edanni.money.R;
 import io.edanni.money.domain.entity.Statement;
@@ -22,8 +23,10 @@ import java.util.List;
 @EFragment(R.layout.fragment_statement_list)
 public class StatementFragment extends Fragment
 {
-    @ViewById(R.id.statement_list)
+    @ViewById(R.id.list)
     RecyclerView statementList;
+    @ViewById(R.id.swiperefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
     @Bean
     StatementViewAdapter statementViewAdapter;
     @Bean
@@ -45,7 +48,16 @@ public class StatementFragment extends Fragment
     {
         statementRepository = retrofitFactory.createService( StatementRepository.class );
         statementList.setAdapter( statementViewAdapter );
+        swipeRefreshLayout.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                getStatements();
+            }
+        } );
         getStatements();
+
     }
 
     @Background
@@ -66,6 +78,7 @@ public class StatementFragment extends Fragment
     void showStatements(List<Statement> statements)
     {
         ((StatementViewAdapter) statementList.getAdapter()).setItems( statements );
+        swipeRefreshLayout.setRefreshing( false );
     }
 
     /**

@@ -7,4 +7,15 @@ public class Login
 {
     public String email;
     public String password;
+
+    public Login()
+    {
+
+    }
+
+    public Login( String email, String Password )
+    {
+        this.email = email;
+        this.password = password;
+    }
 }

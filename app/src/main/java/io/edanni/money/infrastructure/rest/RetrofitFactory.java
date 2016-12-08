@@ -20,6 +20,8 @@ import java.io.IOException;
 @EBean(scope = EBean.Scope.Singleton)
 public class RetrofitFactory
 {
+    public static final String BASE_URL = "http://192.168.20.181:3000";
+
     @Bean
     AuthenticationInterceptor authenticationInterceptor;
 
@@ -55,7 +57,7 @@ public class RetrofitFactory
     public <T> T createService( Class<T> clazz )
     {
         Retrofit retrofit =
-            new Retrofit.Builder().baseUrl( "http://192.168.20.181:3000" )
+            new Retrofit.Builder().baseUrl( BASE_URL )
                                   .addConverterFactory( JacksonConverterFactory.create( getObjectMapper() ) )
                                   .client( getClient() )
                                   .build();
