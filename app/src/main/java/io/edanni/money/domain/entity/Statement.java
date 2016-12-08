@@ -19,83 +19,11 @@ import java.util.Calendar;
 )
 public class Statement extends AbstractEntity
 {
-    private String name;
-    private Calendar date;
-    private BigDecimal value;
-    private Account account;
-    private Integer tagId;
-    private Integer accountId;
-    private String type;
-
-    public Statement() {}
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName( String name )
-    {
-        this.name = name;
-    }
-
-    public Calendar getDate()
-    {
-        return date;
-    }
-
-    public void setDate( Calendar date )
-    {
-        this.date = date;
-    }
-
-    public BigDecimal getValue()
-    {
-        return value;
-    }
-
-    public void setValue( BigDecimal value )
-    {
-        this.value = value;
-    }
-
-    public Account getAccount()
-    {
-        return account;
-    }
-
-    public void setAccount( Account account )
-    {
-        this.account = account;
-    }
-
-    public Integer getTagId()
-    {
-        return tagId;
-    }
-
-    public void setTagId( Integer tagId )
-    {
-        this.tagId = tagId;
-    }
-
-    public Integer getAccountId()
-    {
-        return accountId;
-    }
-
-    public void setAccountId( Integer accountId )
-    {
-        this.accountId = accountId;
-    }
-
-    public String getType()
-    {
-        return type;
-    }
-
-    public void setType( String type )
-    {
-        this.type = type;
-    }
+    public String name;
+    public Calendar date;
+    public BigDecimal value;
+    public Account account;
+    public Integer tagId;
+    public Integer accountId;
+    public String type;
 }
