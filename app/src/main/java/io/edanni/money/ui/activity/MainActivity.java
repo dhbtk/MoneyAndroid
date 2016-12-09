@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,7 +19,6 @@ import io.edanni.money.ui.fragment.StatementListFragment_;
 import org.androidannotations.annotations.*;
 
 @EActivity(R.layout.activity_main)
-@OptionsMenu(R.menu.main)
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -47,12 +47,26 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onNavigationItemSelected( @NonNull MenuItem item )
             {
-                selectDrawerItem( item );
-                return true;
+                return selectDrawerItem( item );
             }
         } );
 
-//        drawerEmail.setText( "teste@teste.com" );
+        //        drawerEmail.setText( "teste@teste.com" );
+    }
+
+    private boolean selectDrawerItem( @NonNull MenuItem item )
+    {
+        switch ( item.getItemId() )
+        {
+            case R.id.nav_statements:
+                changeToFragment( new StatementListFragment_() );
+                break;
+            default:
+                drawer.closeDrawer( GravityCompat.START );
+                return false;
+        }
+        drawer.closeDrawer( GravityCompat.START );
+        return true;
     }
 
     @Override
@@ -61,23 +75,15 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
 
-    private void selectDrawerItem( @NonNull MenuItem item )
-    {
-        switch ( item.getItemId() )
-        {
-            case R.id.nav_statements:
-                changeToFragment( new StatementListFragment_() );
-                break;
-        }
-        drawer.closeDrawer( GravityCompat.START );
-    }
-
     public void changeToFragment( Fragment fragment )
     {
-        getSupportFragmentManager().beginTransaction().replace( R.id.content_main, fragment ).commit();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace( R.id.content_main, fragment );
+        ft.setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN );
+        ft.addToBackStack( null );
+        ft.commit();
     }
 
-    @OptionsItem(R.id.main_logout)
     void logout()
     {
         store.setEmail( null );
@@ -86,4 +92,6 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText( this, getString( R.string.sign_out_successful ), Toast.LENGTH_SHORT ).show();
         finish();
     }
+
+
 }

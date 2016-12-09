@@ -17,9 +17,8 @@ import java.util.Calendar;
 
     @JsonSubTypes.Type(value = Debit.class, name = "Debit") }
 )
-public class Statement extends AbstractEntity
+public class Statement extends NamedEntity
 {
-    public String name;
     public Calendar date;
     public BigDecimal value;
     public Account account;

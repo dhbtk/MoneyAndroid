@@ -8,6 +8,8 @@
         <item name="colorAccent">#f9dc5c</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!--<item name="android:textColorPrimary">@android:color/primary_text_material_dark</item>-->
+        <!--<item name="android:textColorPrimaryInverse">@android:color/primary_text_material_light</item>-->
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -1,4 +1,4 @@
-package io.edanni.money.ui.fragment;
+package io.edanni.money.ui.list.view;
 
 import android.content.Context;
 import android.widget.LinearLayout;
