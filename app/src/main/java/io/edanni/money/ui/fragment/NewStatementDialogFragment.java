@@ -12,7 +12,7 @@ import org.androidannotations.annotations.EFragment;
  * Created by eduardo on 08/12/16.
  */
 @EFragment(R.layout.fragment_statement_new_dialog)
-public class StatementNewFragment extends DialogFragment
+public class NewStatementDialogFragment extends DialogFragment
 {
     @Click
     void close()
@@ -23,7 +23,7 @@ public class StatementNewFragment extends DialogFragment
     @Click
     void spending()
     {
-        NewCreditFragment fragment = NewCreditFragment.newInstance( new Credit() );
+        NewStatementFragment fragment = NewStatementFragment.newInstance( new Credit() );
         ((MainActivity) getTargetFragment().getActivity()).changeToFragment( fragment );
         getDialog().dismiss();
     }
@@ -31,7 +31,7 @@ public class StatementNewFragment extends DialogFragment
     @Click
     void income()
     {
-        NewCreditFragment fragment = NewCreditFragment.newInstance( new Debit() );
+        NewStatementFragment fragment = NewStatementFragment.newInstance( new Debit() );
         ((MainActivity) getTargetFragment().getActivity()).changeToFragment( fragment );
         getDialog().dismiss();
     }

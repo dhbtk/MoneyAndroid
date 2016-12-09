@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.FrameLayout;
 import io.edanni.money.R;
 import io.edanni.money.domain.entity.Statement;
 import io.edanni.money.domain.repository.StatementRepository;
@@ -25,8 +24,6 @@ import java.util.List;
 @EFragment(R.layout.fragment_statement_list)
 public class StatementListFragment extends Fragment
 {
-    @ViewById
-    FrameLayout frame;
     @ViewById(R.id.list)
     RecyclerView statementList;
     @ViewById(R.id.swiperefresh)
@@ -39,14 +36,6 @@ public class StatementListFragment extends Fragment
     RetrofitFactory retrofitFactory;
     StatementRepository statementRepository;
     private EndlessScrollListener scrollListener;
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public StatementListFragment()
-    {
-    }
 
     @AfterViews
     void afterViews()
@@ -115,14 +104,14 @@ public class StatementListFragment extends Fragment
     void addStatements( List<Statement> statements )
     {
         ((StatementViewAdapter) statementList.getAdapter()).getItems().addAll( statements );
-        ((StatementViewAdapter) statementList.getAdapter()).notifyDataSetChanged();
+        statementList.getAdapter().notifyDataSetChanged();
     }
 
     @Click
     void fab()
     {
         BackgroundExecutor.cancelAll( "statements", true );
-        StatementNewFragment dialog = new StatementNewFragment_();
+        NewStatementDialogFragment dialog = new NewStatementDialogFragment_();
         dialog.setTargetFragment( this, 300 );
         dialog.show( getActivity().getSupportFragmentManager(), "fragment_statement_new_dialog" );
     }

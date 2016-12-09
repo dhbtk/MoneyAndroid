@@ -45,4 +45,6 @@
     <string name="name">Nome</string>
     <string name="date">Data</string>
     <string name="action_save">Salvar</string>
+    <string name="new_income">Nova Receita</string>
+    <string name="new_spending">Nova Despesa</string>
 </resources>

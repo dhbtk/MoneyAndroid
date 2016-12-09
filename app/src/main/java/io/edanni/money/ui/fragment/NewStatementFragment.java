@@ -26,7 +26,7 @@ import java.util.List;
  */
 @EFragment(R.layout.fragment_statement_new)
 @OptionsMenu(R.menu.form)
-public class NewCreditFragment extends Fragment
+public class NewStatementFragment extends Fragment
 {
     /*-------------------------------------------------------------------
      *                            ATTRIBUTES
@@ -52,9 +52,9 @@ public class NewCreditFragment extends Fragment
      *-------------------------------------------------------------------*/
 
 
-    public static NewCreditFragment newInstance( Statement statement )
+    public static NewStatementFragment newInstance( Statement statement )
     {
-        NewCreditFragment fragment = new NewCreditFragment_();
+        NewStatementFragment fragment = new NewStatementFragment_();
         Bundle arguments = new Bundle();
         arguments.putSerializable( "statement", statement );
         fragment.setArguments( arguments );
@@ -68,6 +68,14 @@ public class NewCreditFragment extends Fragment
         if ( receivedStatement != null )
         {
             statement = receivedStatement;
+            if ( statement instanceof Credit )
+            {
+                getActivity().setTitle( getString( R.string.new_spending) );
+            }
+            else
+            {
+                getActivity().setTitle( getString( R.string.new_income) );
+            }
         }
         tagRepository = retrofitFactory.createService( TagRepository.class );
         accountRepository = retrofitFactory.createService( AccountRepository.class );
