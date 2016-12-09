@@ -193,6 +193,13 @@ public class NewStatementFragment extends Fragment
         removeDigit();
     }
 
+    @LongClick(R.id.backspace)
+    void backspaceLongClick()
+    {
+        statement.value = new BigDecimal( "0.00" );
+        updateValueDisplay();
+    }
+
     @Click
     void b1()
     {

@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
     public void changeToFragment( Fragment fragment )
     {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace( R.id.content_main, fragment );
+        ft.replace( R.id.content_main, fragment, fragment.getClass().getSimpleName() );
         ft.setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN );
         ft.addToBackStack( null );
         ft.commit();

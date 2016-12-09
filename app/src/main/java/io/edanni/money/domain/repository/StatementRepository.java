@@ -15,8 +15,17 @@ public interface StatementRepository
     @GET("/statements")
     Call<Page<Statement>> getStatements( @Query("period") String period, @Query("page") Integer page );
 
-    @GET("/credits/{id}/edit")
+    @GET("/credits/{id}")
     Call<Credit> getCredit( @Path("id") Integer id );
+
+    @GET("/debits/{id}")
+    Call<Debit> getDebit( @Path("id") Integer id );
+
+    @DELETE("/credits/{id}")
+    Call<Void> deleteCredit( @Path("id") Integer id );
+
+    @DELETE("/debits/{id}")
+    Call<Void> deleteDebit( @Path("id") Integer id );
 
     @POST("/credits")
     Call<Credit> createCredit( @Body Credit credit );

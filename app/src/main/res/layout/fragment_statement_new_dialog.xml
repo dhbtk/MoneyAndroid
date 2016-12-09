@@ -4,6 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="16dp">
+
     <TextView
         android:id="@+id/add_statement" android:text="@string/add_statement"
         android:layout_width="wrap_content" android:layout_height="wrap_content"

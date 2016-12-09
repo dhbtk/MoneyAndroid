@@ -5,7 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 import io.edanni.money.R;
+import io.edanni.money.domain.entity.Credit;
 import io.edanni.money.domain.entity.Statement;
 import io.edanni.money.domain.repository.StatementRepository;
 import io.edanni.money.infrastructure.rest.Page;
@@ -14,6 +18,7 @@ import io.edanni.money.ui.list.StatementViewAdapter;
 import io.edanni.money.ui.list.listener.EndlessScrollListener;
 import org.androidannotations.annotations.*;
 import org.androidannotations.api.BackgroundExecutor;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,6 +35,8 @@ public class StatementListFragment extends Fragment
     SwipeRefreshLayout swipeRefreshLayout;
     @ViewById
     FloatingActionButton fab;
+    @ViewById
+    ProgressBar progressBar;
     @Bean
     StatementViewAdapter statementViewAdapter;
     @Bean
@@ -57,25 +64,34 @@ public class StatementListFragment extends Fragment
             @Override
             public void onRefresh()
             {
-                getStatements( false );
+                getStatements();
             }
         } );
-        swipeRefreshLayout.setRefreshing( true );
-        getStatements( true );
+        getStatements();
     }
 
     @Background(id = "statements", serial = "statements")
-    void getStatements( boolean showLoading )
+    void getStatements()
     {
         try
         {
+            startLoading();
             Page<Statement> statements = statementRepository.getStatements( "past", 1 ).execute().body();
-            showStatements( statements.content, showLoading );
+            showStatements( statements.content );
         }
         catch ( IOException e )
         {
             e.printStackTrace();
         }
+    }
+
+    @UiThread
+    void showStatements( List<Statement> statements )
+    {
+        ((StatementViewAdapter) statementList.getAdapter()).setItems( statements );
+        swipeRefreshLayout.setRefreshing( false );
+        scrollListener.resetState();
+        stopLoading();
     }
 
     @Background(id = "statements", serial = "statements")
@@ -83,21 +99,15 @@ public class StatementListFragment extends Fragment
     {
         try
         {
+            startLoading();
             Page<Statement> statements = statementRepository.getStatements( "past", page ).execute().body();
             addStatements( statements.content );
         }
         catch ( IOException e )
         {
             e.printStackTrace();
+            stopLoading();
         }
-    }
-
-    @UiThread
-    void showStatements( List<Statement> statements, boolean showLoading )
-    {
-        ((StatementViewAdapter) statementList.getAdapter()).setItems( statements );
-        swipeRefreshLayout.setRefreshing( false );
-        scrollListener.resetState();
     }
 
     @UiThread
@@ -105,14 +115,86 @@ public class StatementListFragment extends Fragment
     {
         ((StatementViewAdapter) statementList.getAdapter()).getItems().addAll( statements );
         statementList.getAdapter().notifyDataSetChanged();
+        stopLoading();
+    }
+
+    @UiThread
+    void startLoading()
+    {
+        progressBar.setVisibility( View.VISIBLE );
+    }
+
+    @UiThread
+    void stopLoading()
+    {
+        progressBar.setVisibility( View.INVISIBLE );
     }
 
     @Click
     void fab()
     {
         BackgroundExecutor.cancelAll( "statements", true );
+        swipeRefreshLayout.setRefreshing( false );
         NewStatementDialogFragment dialog = new NewStatementDialogFragment_();
         dialog.setTargetFragment( this, 300 );
         dialog.show( getActivity().getSupportFragmentManager(), "fragment_statement_new_dialog" );
+    }
+
+    @Background
+    void deleteCredit( Integer id )
+    {
+        startLoading();
+        try
+        {
+            Response<Void> response = statementRepository.deleteCredit( id ).execute();
+            showCreditDeleted();
+            stopLoading();
+            getStatements();
+        }
+        catch ( IOException e )
+        {
+            stopLoading();
+        }
+    }
+
+    @Background
+    void deleteDebit( Integer id )
+    {
+        startLoading();
+        try
+        {
+            Response<Void> response = statementRepository.deleteDebit( id ).execute();
+            showDebitDeleted();
+            stopLoading();
+            getStatements();
+        }
+        catch ( IOException e )
+        {
+            stopLoading();
+        }
+    }
+
+    @UiThread
+    void showCreditDeleted()
+    {
+        Toast.makeText( getActivity(), getString( R.string.spending_deleted), Toast.LENGTH_LONG ).show();
+    }
+
+    @UiThread
+    void showDebitDeleted()
+    {
+        Toast.makeText( getActivity(), getString( R.string.income_deleted), Toast.LENGTH_LONG ).show();
+    }
+
+    public void deleteStatement( Statement statement )
+    {
+        if ( statement instanceof Credit )
+        {
+            deleteCredit( statement.id );
+        }
+        else
+        {
+            deleteDebit( statement.id );
+        }
     }
 }

@@ -1,49 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:layout_marginBottom="8dp"
     android:padding="8dp"
     android:elevation="2dp"
     android:background="@android:color/background_light">
-    <LinearLayout android:orientation="horizontal"
-        android:layout_height="wrap_content"
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:paddingBottom="8dp">
-        <TextView android:id="@+id/source"
-            android:layout_height="wrap_content" android:layout_width="wrap_content"
-            android:text="source"
-            android:textAppearance="@android:style/TextAppearance"
-            android:padding="2dp" />
-        <TextView android:text="@string/statement_from_to"
-            android:layout_height="wrap_content" android:layout_width="wrap_content"
-            android:textAppearance="@android:style/TextAppearance"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="2dp"
-            android:paddingTop="2dp" />
-        <TextView android:id="@+id/destination"
-            android:layout_height="wrap_content" android:layout_width="wrap_content"
-            android:text="destination"
-            android:textAppearance="@android:style/TextAppearance"
-            android:padding="2dp" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/source"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="source"
+                    android:textAppearance="@android:style/TextAppearance"
+                    android:padding="2dp" />
+
+                <TextView
+                    android:text="@string/statement_from_to"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp" />
+
+                <TextView
+                    android:id="@+id/destination"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="destination"
+                    android:textAppearance="@android:style/TextAppearance"
+                    android:padding="2dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Statement name"
+                android:textAppearance="@android:style/TextAppearance"
+                android:paddingBottom="8dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_more_vert_black_24dp"
+            android:id="@+id/edit"
+            android:background="@android:color/background_light" />
+
     </LinearLayout>
-    <TextView android:id="@+id/name"
-        android:layout_height="wrap_content" android:layout_width="match_parent"
-        android:text="Statement name"
-        android:textAppearance="@android:style/TextAppearance"
-        android:paddingBottom="8dp" />
-    <LinearLayout android:orientation="horizontal"
+
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:paddingBottom="8dp">
-        <TextView android:id="@+id/value"
-            android:layout_height="wrap_content" android:layout_width="wrap_content"
+
+        <TextView
+            android:id="@+id/value"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="R$ 25,00"
             android:textAppearance="@android:style/TextAppearance" />
-        <TextView android:id="@+id/date"
-            android:layout_height="wrap_content" android:layout_width="wrap_content"
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="DD/MM/YYYY"
             android:textAppearance="@android:style/TextAppearance"
             android:layout_weight="1"

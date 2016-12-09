@@ -47,4 +47,10 @@
     <string name="action_save">Salvar</string>
     <string name="new_income">Nova Receita</string>
     <string name="new_spending">Nova Despesa</string>
+    <string name="delete">Excluir</string>
+    <string name="edit">Editar</string>
+    <string name="delete_statement">Excluir movimentação?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="income_deleted">Receita excluída</string>
+    <string name="spending_deleted">Despesa excluída</string>
 </resources>
