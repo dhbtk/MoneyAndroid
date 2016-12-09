@@ -121,13 +121,19 @@ public class StatementListFragment extends Fragment
     @UiThread
     void startLoading()
     {
-        progressBar.setVisibility( View.VISIBLE );
+        if ( progressBar != null )
+        {
+            progressBar.setVisibility( View.VISIBLE );
+        }
     }
 
     @UiThread
     void stopLoading()
     {
-        progressBar.setVisibility( View.INVISIBLE );
+        if ( progressBar != null )
+        {
+            progressBar.setVisibility( View.INVISIBLE );
+        }
     }
 
     @Click

@@ -4,6 +4,7 @@ import io.edanni.money.domain.entity.json.Login;
 import io.edanni.money.domain.entity.json.UserWrapper;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.POST;
 
 /**
@@ -13,4 +14,7 @@ public interface UserRepository
 {
     @POST("/api/v1/auth/sign_in")
     Call<UserWrapper> signIn( @Body Login login );
+
+    @DELETE("/api/v1/auth/sign_out")
+    Call<Void> signOut();
 }

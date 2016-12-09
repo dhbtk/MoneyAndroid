@@ -1,6 +1,5 @@
 package io.edanni.money.ui.activity;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,11 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 import io.edanni.money.R;
 import io.edanni.money.infrastructure.security.CredentialsStore;
+import io.edanni.money.ui.fragment.DashboardFragment_;
 import io.edanni.money.ui.fragment.StatementListFragment_;
-import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity
@@ -51,13 +53,16 @@ public class MainActivity extends AppCompatActivity
             }
         } );
 
-        //        drawerEmail.setText( "teste@teste.com" );
+        getSupportFragmentManager().beginTransaction().replace( R.id.content_main, new DashboardFragment_(), "dashboard" ).commit();
     }
 
     private boolean selectDrawerItem( @NonNull MenuItem item )
     {
         switch ( item.getItemId() )
         {
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace( R.id.content_main, new DashboardFragment_(), "dashboard" ).commit();
+                break;
             case R.id.nav_statements:
                 changeToFragment( new StatementListFragment_() );
                 break;
@@ -83,15 +88,5 @@ public class MainActivity extends AppCompatActivity
         ft.addToBackStack( null );
         ft.commit();
     }
-
-    void logout()
-    {
-        store.setEmail( null );
-        store.setPassword( null );
-        startActivity( new Intent( this, LoginActivity_.class ) );
-        Toast.makeText( this, getString( R.string.sign_out_successful ), Toast.LENGTH_SHORT ).show();
-        finish();
-    }
-
 
 }
