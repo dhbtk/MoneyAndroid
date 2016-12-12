@@ -3,8 +3,7 @@ package io.edanni.money.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import io.edanni.money.R;
-import io.edanni.money.domain.entity.json.Login;
-import io.edanni.money.domain.entity.json.UserWrapper;
+import io.edanni.money.domain.entity.User;
 import io.edanni.money.domain.repository.UserRepository;
 import io.edanni.money.infrastructure.rest.RetrofitFactory;
 import io.edanni.money.infrastructure.security.CredentialsStore;
@@ -39,12 +38,9 @@ public class StartupActivity extends AppCompatActivity
     @Background
     void login()
     {
-        Login login = new Login();
-        login.email = store.getEmail();
-        login.password = store.getPassword();
         try
         {
-            UserWrapper response = userRepository.signIn(login).execute().body();
+            User response = userRepository.signIn().execute().body();
             if ( response != null )
             {
                 switchToMain();

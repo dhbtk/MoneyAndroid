@@ -1,20 +1,14 @@
 package io.edanni.money.domain.repository;
 
-import io.edanni.money.domain.entity.json.Login;
-import io.edanni.money.domain.entity.json.UserWrapper;
+import io.edanni.money.domain.entity.User;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
 
 /**
  * Repositório de usuários
  */
 public interface UserRepository
 {
-    @POST("/api/v1/auth/sign_in")
-    Call<UserWrapper> signIn( @Body Login login );
-
-    @DELETE("/api/v1/auth/sign_out")
-    Call<Void> signOut();
+    @GET("/users/edit")
+    Call<User> signIn();
 }

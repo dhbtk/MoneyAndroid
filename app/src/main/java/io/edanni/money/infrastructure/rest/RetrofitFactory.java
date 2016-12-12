@@ -20,8 +20,8 @@ import java.io.IOException;
 @EBean(scope = EBean.Scope.Singleton)
 public class RetrofitFactory
 {
-//    public static final String BASE_URL = "https://money.edanni.io";
-    public static final String BASE_URL = "http://192.168.20.181:3000";
+    public static final String BASE_URL = "https://money.edanni.io";
+//    public static final String BASE_URL = "http://192.168.20.181:3000";
 
     @Bean
     AuthenticationInterceptor authenticationInterceptor;
