@@ -2,8 +2,9 @@ package io.edanni.money.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.*;
 import fr.ganfra.materialspinner.MaterialSpinner;
 import io.edanni.money.R;
 import io.edanni.money.domain.entity.*;
@@ -38,6 +39,32 @@ public class NewStatementFragment extends Fragment
     MaterialSpinner category;
     @ViewById
     TextView value;
+    @ViewById
+    Button b1;
+    @ViewById
+    Button b2;
+    @ViewById
+    Button b3;
+    @ViewById
+    Button b4;
+    @ViewById
+    Button b5;
+    @ViewById
+    Button b6;
+    @ViewById
+    Button b7;
+    @ViewById
+    Button b8;
+    @ViewById
+    Button b9;
+    @ViewById
+    Button b0;
+    @ViewById
+    ImageButton backspace;
+    @ViewById
+    ProgressBar progressBar;
+    @OptionsMenuItem(R.id.menu_save)
+    MenuItem save;
     @Bean
     RetrofitFactory retrofitFactory;
 
@@ -64,6 +91,7 @@ public class NewStatementFragment extends Fragment
     @AfterViews
     void getSpinnerData()
     {
+        lockForm();
         Statement receivedStatement = (Statement) getArguments().getSerializable( "statement" );
         if ( receivedStatement != null )
         {
@@ -88,6 +116,49 @@ public class NewStatementFragment extends Fragment
             statement.value = new BigDecimal( "0.00" );
         }
         updateValueDisplay();
+    }
+
+    @UiThread
+    void lockForm()
+    {
+        progressBar.setVisibility( View.VISIBLE );
+        category.setEnabled( false );
+        account.setEnabled( false );
+        b1.setEnabled( false );
+        b2.setEnabled( false );
+        b3.setEnabled( false );
+        b4.setEnabled( false );
+        b5.setEnabled( false );
+        b6.setEnabled( false );
+        b7.setEnabled( false );
+        b8.setEnabled( false );
+        b9.setEnabled( false );
+        b0.setEnabled( false );
+        backspace.setEnabled( false );
+        save.setEnabled( false );
+    }
+
+    @UiThread
+    void unlockForm()
+    {
+        if ( category.getAdapter() != null && account.getAdapter() != null )
+        {
+            category.setEnabled( true );
+            account.setEnabled( true );
+            b1.setEnabled( true );
+            b2.setEnabled( true );
+            b3.setEnabled( true );
+            b4.setEnabled( true );
+            b5.setEnabled( true );
+            b6.setEnabled( true );
+            b7.setEnabled( true );
+            b8.setEnabled( true );
+            b9.setEnabled( true );
+            b0.setEnabled( true );
+            backspace.setEnabled( true );
+            save.setEnabled( true );
+            progressBar.setVisibility( View.INVISIBLE );
+        }
     }
 
     @Background
@@ -127,6 +198,7 @@ public class NewStatementFragment extends Fragment
             entities.add( tag );
         }
         category.setAdapter( new NamedEntityListAdapter( getContext(), entities ) );
+        unlockForm();
     }
 
     @UiThread
@@ -138,6 +210,7 @@ public class NewStatementFragment extends Fragment
             entities.add( account );
         }
         account.setAdapter( new NamedEntityListAdapter( getContext(), entities ) );
+        unlockForm();
     }
 
     /*-------------------------------------------------------------------
@@ -175,7 +248,7 @@ public class NewStatementFragment extends Fragment
             return false;
         }
         statement.accountId = ((Account) account.getSelectedItem()).id;
-        if ( category.getSelectedItem() != null )
+        if ( category.getSelectedItem() != null && category.getSelectedItem() instanceof Tag )
         {
             statement.name = ((Tag) category.getSelectedItem()).name;
             statement.tagId = ((Tag) category.getSelectedItem()).id;
@@ -265,6 +338,7 @@ public class NewStatementFragment extends Fragment
     {
         if ( validateAndUpdateStatement() )
         {
+            lockForm();
             createStatement();
         }
         else
@@ -288,11 +362,13 @@ public class NewStatementFragment extends Fragment
                 else
                 {
                     showCreationError();
+                    unlockForm();
                 }
             }
             catch ( IOException e )
             {
                 showCreationError();
+                unlockForm();
             }
         }
         else
@@ -307,11 +383,13 @@ public class NewStatementFragment extends Fragment
                 else
                 {
                     showCreationError();
+                    unlockForm();
                 }
             }
             catch ( IOException e )
             {
                 showCreationError();
+                unlockForm();
             }
         }
     }
