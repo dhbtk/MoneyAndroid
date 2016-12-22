@@ -10,7 +10,7 @@ import io.edanni.money.R;
 import io.edanni.money.domain.entity.*;
 import io.edanni.money.domain.repository.AccountRepository;
 import io.edanni.money.domain.repository.StatementRepository;
-import io.edanni.money.domain.repository.TagRepository;
+import io.edanni.money.domain.repository.CategoryRepository;
 import io.edanni.money.infrastructure.rest.RetrofitFactory;
 import io.edanni.money.ui.list.NamedEntityListAdapter;
 import org.androidannotations.annotations.*;
@@ -68,7 +68,7 @@ public class NewStatementFragment extends Fragment
     @Bean
     RetrofitFactory retrofitFactory;
 
-    TagRepository tagRepository;
+    CategoryRepository categoryRepository;
     AccountRepository accountRepository;
     StatementRepository statementRepository;
 
@@ -105,7 +105,7 @@ public class NewStatementFragment extends Fragment
                 getActivity().setTitle( getString( R.string.new_income) );
             }
         }
-        tagRepository = retrofitFactory.createService( TagRepository.class );
+        categoryRepository = retrofitFactory.createService( CategoryRepository.class );
         accountRepository = retrofitFactory.createService( AccountRepository.class );
         statementRepository = retrofitFactory.createService( StatementRepository.class );
         loadTags();
@@ -166,7 +166,7 @@ public class NewStatementFragment extends Fragment
     {
         try
         {
-            List<Tag> tags = tagRepository.getTags().execute().body();
+            List<Category> tags = categoryRepository.getCategories().execute().body();
             setTags( tags );
         }
         catch ( IOException e )
@@ -190,12 +190,12 @@ public class NewStatementFragment extends Fragment
     }
 
     @UiThread
-    void setTags( List<Tag> tags )
+    void setTags( List<Category> tags )
     {
         List<NamedEntity> entities = new ArrayList<>();
-        for ( Tag tag : tags )
+        for ( Category category : tags )
         {
-            entities.add( tag );
+            entities.add( category );
         }
         category.setAdapter( new NamedEntityListAdapter( getContext(), entities ) );
         unlockForm();
@@ -248,10 +248,10 @@ public class NewStatementFragment extends Fragment
             return false;
         }
         statement.accountId = ((Account) account.getSelectedItem()).id;
-        if ( category.getSelectedItem() != null && category.getSelectedItem() instanceof Tag )
+        if ( category.getSelectedItem() != null && category.getSelectedItem() instanceof Category )
         {
-            statement.name = ((Tag) category.getSelectedItem()).name;
-            statement.tagId = ((Tag) category.getSelectedItem()).id;
+            statement.name = ((Category) category.getSelectedItem()).name;
+            statement.categoryId = ((Category) category.getSelectedItem()).id;
         }
         return true;
     }

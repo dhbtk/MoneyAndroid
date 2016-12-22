@@ -10,6 +10,6 @@ public class RecurringCredit extends AbstractEntity
     public String name;
     public Integer months;
     public BigDecimal value;
-    public Tag tag;
+    public Category category;
     public Integer accountId;
 }

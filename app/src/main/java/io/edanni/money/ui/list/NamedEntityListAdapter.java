@@ -78,4 +78,16 @@ public class NamedEntityListAdapter extends BaseAdapter
     {
         return this.items;
     }
+
+    public int getPositionById( int id )
+    {
+        for(int i = 0; i < items.size(); i++)
+        {
+            if ( items.get( i ).id == id )
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

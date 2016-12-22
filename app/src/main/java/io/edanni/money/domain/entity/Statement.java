@@ -22,7 +22,7 @@ public class Statement extends NamedEntity
     public Calendar date;
     public BigDecimal value;
     public Account account;
-    public Integer tagId;
+    public Integer categoryId;
     public Integer accountId;
     public String type;
 }

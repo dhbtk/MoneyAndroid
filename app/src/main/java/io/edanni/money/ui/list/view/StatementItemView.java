@@ -89,7 +89,7 @@ public class StatementItemView extends LinearLayout implements PopupMenu.OnMenuI
         switch ( item.getItemId() )
         {
             case R.id.edit:
-                EditStatementFragment fragment = EditStatementFragment.newInstance( statement.id );
+                EditStatementFragment fragment = EditStatementFragment.newInstance( statement );
                 assert getActivity() != null;
                 ((MainActivity) getActivity()).changeToFragment( fragment );
                 return true;

@@ -1,6 +1,6 @@
 package io.edanni.money.domain.repository;
 
-import io.edanni.money.domain.entity.Tag;
+import io.edanni.money.domain.entity.Category;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * Created by eduardo on 09/12/16.
  */
-public interface TagRepository
+public interface CategoryRepository
 {
-    @GET("/tags")
-    Call<List<Tag>> getTags();
+    @GET("/categories")
+    Call<List<Category>> getCategories();
 }
